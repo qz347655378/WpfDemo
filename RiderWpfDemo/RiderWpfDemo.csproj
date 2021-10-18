@@ -8,13 +8,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="assets\fonts\iconfont.ttf" />
-	  <None Remove="background.png" />
+		<None Remove="assets\fonts\iconfont.ttf" />
+		<None Remove="background.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="assets\fonts\iconfont.ttf" />
-	  <Resource Include="background.png" />
+		<Resource Include="assets\fonts\iconfont.ttf" />
+		<Resource Include="background.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Styles\" />
 	</ItemGroup>
 
 </Project>

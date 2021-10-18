@@ -2,176 +2,54 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:riderwpfdemo="clr-namespace:RiderWpfDemo.UserControls"
         mc:Ignorable="d"
         Background="Transparent"
         AllowsTransparency="True"
         Title="MainWindow" MinHeight="720" Height="720" Width="1050" MinWidth="1050" WindowStartupLocation="CenterScreen" WindowStyle="None" >
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="/assets/fonts/#iconfont"></Setter>
-        </Style>
-
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" 
-                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+        <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F0F0F0" Offset="0.0"/>
+            <GradientStop Color="#E5E5E5" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
+        <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#ECF4FC" Offset="0.0"/>
+            <GradientStop Color="#DCECFC" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="AddTabItem" TargetType="{x:Type TabItem}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Border x:Name="border" Background="{TemplateBinding Background}" 
-                                    BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" 
-                                    CornerRadius="8"
-                                    SnapsToDevicePixels="true">
-                                <ContentPresenter x:Name="contentPresenter" Focusable="False" 
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Border>
-                            <Border Background="Black" CornerRadius="8"  x:Name="Border" Opacity="0.4" Visibility="Hidden">
-                                <TextBlock Text="&#xe664;" FontFamily="/assets/fonts/#iconfont" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Foreground="White"></TextBlock>
-                            </Border>
-
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Border" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="SmallIconButton" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="FontSize" Value="16"></Setter>
-            <Setter Property="Margin" Value="5 0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Opacity="0.8" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Opacity" Value="1"></Setter>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
-            <Setter Property="Foreground" Value="#5292FE"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0 0 0 -2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
-                        <Grid x:Name="templateRoot" SnapsToDevicePixels="true"  Background="Transparent" >
-                            <Border x:Name="mainBorder" Background="Transparent" 
-                                    Margin="0">
-                                <Border x:Name="innerBorder">
-                                    <Path   x:Name="Path" Height="32" Width="190" Fill="White" >
-                                        <Path.Data>
-                                            <PathGeometry FillRule="EvenOdd"  Figures="M 0 32 Q 5 33,10 16 T 29,0 T 164 0 Q 175 0,180 16 T 191 32"/>
-                                        </Path.Data>
-                                    </Path>
-                                </Border>
-                            </Border>
-                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header"
-                                              Focusable="False" HorizontalAlignment="Center" 
-                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="Center"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter TargetName="Path" Property="Opacity" Value="0.5"/>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding TabStripPlacement,
-                                        RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter TargetName="Path" Property="Fill" Value="#CADEFF"/>
-                                <Setter TargetName="Path" Property="Opacity" Value="0.8"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Panel.ZIndex" Value="1"/>
-                                <Setter Property="Margin" Value="0 0 0 -2"/>
-                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
-
-
-                            </MultiDataTrigger>
-                        </ControlTemplate.Triggers>
+                        <Button x:Name="Add" Click="Add_OnClick">
+                            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                                <Rectangle Height="30" Width="40" Fill="White"/>
+                                <TextBlock Text="&#xe665;" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Window.Resources>
+
     <Grid Background="#5292FE" >
         <Grid.Effect>
             <DropShadowEffect Color="Gray" BlurRadius="50" ShadowDepth="0" Opacity="0.8"/>
@@ -223,10 +101,10 @@
                 <!--#endregion-->
                 <!--#region 搜索 -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Style="{StaticResource SmallIconButton}">
+                    <Button Style="{DynamicResource SmallIconButton}">
                         <TextBlock Text="&#xe662;" FontSize="20" Foreground="White" ToolTip="返回"></TextBlock>
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}">
+                    <Button Style="{DynamicResource SmallIconButton}">
                         <TextBlock Text="&#xe64f;" FontSize="18" Foreground="White" ToolTip="刷新"></TextBlock>
                     </Button>
 
@@ -237,13 +115,13 @@
                         <StackPanel Orientation="Horizontal" Margin="25 0 0 0">
                             <TextBox Width="195" VerticalAlignment="Center" BorderBrush="Transparent"  Foreground="White"
                                      Padding="5 0"  Margin="0" Background="Transparent"/>
-                            <Button Style="{StaticResource SmallIconButton}">
+                            <Button Style="{DynamicResource SmallIconButton}">
                                 <TextBlock Text="&#xe6e1;" VerticalAlignment="Center" FontSize="18" ToolTip="搜索" Foreground="White"  ></TextBlock>
                             </Button>
                         </StackPanel>
                     </Grid>
 
-                    <Button Style="{StaticResource SmallIconButton}">
+                    <Button Style="{DynamicResource SmallIconButton}">
                         <TextBlock Text="&#xe629;" VerticalAlignment="Center" FontSize="18" ToolTip="听歌识曲" Margin="10 0 0 0" Foreground="White"></TextBlock>
                     </Button>
 
@@ -253,36 +131,33 @@
 
                 <StackPanel Grid.Column="2" FlowDirection="RightToLeft" Orientation="Horizontal">
 
-                    <Button Style="{StaticResource SmallIconButton}" x:Name="WindowClose" Click="WindowClose_OnClick" ToolTip="关闭" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" x:Name="WindowClose" Click="WindowClose_OnClick" ToolTip="关闭" Foreground="White" >
                         <TextBlock Text="&#xe747;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" x:Name="MaxWindow" Click="MaxWindow_OnClick" ToolTip="最大化" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" x:Name="MaxWindow" Click="MaxWindow_OnClick" ToolTip="最大化" Foreground="White" >
                         <TextBlock Text="&#xe66c;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" x:Name="MinWindow" Click="MinWindow_OnClick" ToolTip="最小化" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" x:Name="MinWindow" Click="MinWindow_OnClick" ToolTip="最小化" Foreground="White" >
                         <TextBlock Text="&#xe7fd;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" ToolTip="精简模式" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" ToolTip="精简模式" Foreground="White" >
                         <TextBlock Text="&#xe757;" />
                     </Button>
 
 
                     <TextBlock Text="|" FontSize="18" VerticalAlignment="Center" Foreground="White" Margin="5 0"></TextBlock>
-                    <Button Style="{StaticResource SmallIconButton}" ToolTip="主菜单" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" ToolTip="主菜单" Foreground="White" >
                         <TextBlock Text="&#xe650;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" ToolTip="消息中心" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" ToolTip="消息中心" Foreground="White" >
                         <TextBlock Text="&#xe7de;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" ToolTip="个性皮肤" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" ToolTip="个性皮肤" Foreground="White" >
                         <TextBlock Text="&#xe6c6;" />
                     </Button>
-                    <Button Style="{StaticResource SmallIconButton}" ToolTip="动态壁纸" Foreground="White" >
+                    <Button Style="{DynamicResource SmallIconButton}" ToolTip="动态壁纸" Foreground="White" >
                         <TextBlock Text="&#xea24;" />
                     </Button>
-
-
-
                 </StackPanel>
 
 
@@ -293,7 +168,7 @@
 
 
             <!--#region 中间区域 -->
-            <TabControl Grid.Row="1">
+            <TabControl Grid.Row="1" x:Name="Control">
                 <TabItem Style="{DynamicResource TabItemStyle1}" TabIndex="0">
                     <TabItem.Header >
                         <StackPanel Orientation="Horizontal" >
@@ -301,21 +176,21 @@
                             <Label Content="我的音乐"/>
                         </StackPanel>
                     </TabItem.Header>
-
                     <TabPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <riderwpfdemo:MyMusic></riderwpfdemo:MyMusic>
                     </TabPanel>
-
-
                 </TabItem>
-                <TabItem TabIndex="1" Style="{DynamicResource TabItemStyle1}" Margin="-45 0 0 -2">
-                    <TabItem.Header>
+                <TabItem TabIndex="1"  Style="{DynamicResource TabItemStyle1}" Margin="-45 0 0 -2">
+                    <TabItem.Header >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="&#xe72b;" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <Label Content="发现" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </TabItem.Header>
-
                 </TabItem>
+
+
+
             </TabControl>
             <!--#endregion-->
 
@@ -341,7 +216,7 @@
                     </Grid.ColumnDefinitions>
                     <!--#region 歌曲信息 -->
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button Height="50" Width="50"  Style="{StaticResource ButtonStyle1}" HorizontalAlignment="Left" Cursor="Hand" 
+                        <Button Height="50" Width="50"  Style="{DynamicResource ButtonStyle1}" HorizontalAlignment="Left" Cursor="Hand" 
                                  Margin="20 0 0 0">
                             <Button.Background>
                                 <ImageBrush>
@@ -383,15 +258,15 @@
                     <!--#endregion-->
                     <!--#region 控制器 -->
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Style="{StaticResource SmallIconButton}" FontSize="30"
+                        <Button Style="{DynamicResource SmallIconButton}" FontSize="30"
                                 ToolTip="上一首" Foreground="#5192FE">
                             <TextBlock Text="&#xe63c;"/>
                         </Button>
-                        <Button Style="{StaticResource SmallIconButton}" FontSize="36" Margin="20 0"
+                        <Button Style="{DynamicResource SmallIconButton}" FontSize="36" Margin="20 0"
                                 Foreground="#5192FE" ToolTip="播放">
                             <TextBlock Text="&#xea82;" />
                         </Button>
-                        <Button Style="{StaticResource SmallIconButton}" FontSize="30"
+                        <Button Style="{DynamicResource SmallIconButton}" FontSize="30"
                                 ToolTip="下一首" Foreground="#5192FE">
                             <TextBlock Text="&#xe63e;"/>
                         </Button>
@@ -404,16 +279,16 @@
                         <TextBlock Text=" / " Foreground="Gray" VerticalAlignment="Center"/>
                         <TextBlock Text="04:17" Foreground="Gray" VerticalAlignment="Center"/>
 
-                        <Button Style="{StaticResource SmallIconButton}">
+                        <Button Style="{DynamicResource SmallIconButton}">
                             <TextBlock Text="&#xe69f;"></TextBlock>
                         </Button>
-                        <Button Style="{StaticResource SmallIconButton}">
+                        <Button Style="{DynamicResource SmallIconButton}">
                             <TextBlock Text="&#xe6a4;"></TextBlock>
                         </Button>
-                        <Button Style="{StaticResource SmallIconButton}">
+                        <Button Style="{DynamicResource SmallIconButton}">
                             <TextBlock Text="词"></TextBlock>
                         </Button>
-                        <Button Style="{StaticResource SmallIconButton}">
+                        <Button Style="{DynamicResource SmallIconButton}">
                             <TextBlock Text="&#xe61b;"></TextBlock>
                         </Button>
 

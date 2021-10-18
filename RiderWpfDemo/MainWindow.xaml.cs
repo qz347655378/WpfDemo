@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace RiderWpfDemo
@@ -40,6 +42,31 @@ namespace RiderWpfDemo
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void Add_OnClick(object sender, RoutedEventArgs e)
+        {
+            var btn = sender;
+            var item = new TabItem { IsSelected = true, Header = "新增tab", Style = FindResource("TabItemStyle1") as Style, Margin = new Thickness(left: -90, 0, 0, 0) };
+            Control.Items.Remove(sender);
+
+            //Control.Items.Add(item);
+            //Control.Items.Add(sender);
+            //var list = Control.Items;
+            //var newList = new SortedList();
+
+            //foreach (var obj in list)
+            //{
+            //    if (obj is TabItem o)
+            //    {
+            //        newList.Add(o.TabIndex, o);
+            //    }
+            //}
+
+
+
+
+
         }
     }
 }
