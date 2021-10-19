@@ -129,7 +129,7 @@
 
 
             <!--#region 中间区域 -->
-            <TabControl Grid.Row="1" x:Name="Control">
+            <TabControl Grid.Row="1" x:Name="Control" BorderThickness="0">
                 <TabItem Style="{DynamicResource TabItemStyle1}" TabIndex="0">
                     <TabItem.Header >
                         <StackPanel Orientation="Horizontal" >
