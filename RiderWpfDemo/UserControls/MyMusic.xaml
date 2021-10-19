@@ -3,35 +3,365 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RiderWpfDemo.UserControls"
+             xmlns:local="clr-namespace:RiderWpfDemo.Pages"
              mc:Ignorable="d" 
+             d:DesignHeight="600"
+             d:DesignWidth="1050"
              >
-    <Grid>
+    <UserControl.Resources>
+        <Style x:Key="OrderRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="templateRoot" Background="Transparent" MaxWidth="190" SnapsToDevicePixels="True" Margin="5 0">
+                            <Border Height="45" x:Name="Border"  CornerRadius="5" Visibility="Hidden"/>
+                            <ContentPresenter x:Name="contentPresenter"    Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="5 0" RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Visibility" Value="Visible" TargetName="Border"/>
+                                <Setter Property="Background" Value="#F2F2F2" TargetName="Border" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Visibility" Value="Hidden" TargetName="Border"/>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Visibility" Value="Visible" TargetName="Border"/>
+                                <Setter Property="Background" Value="#EAF0FB" TargetName="Border"/>
+                                <Setter Property="Foreground" Value="#5292FE"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Hidden" TargetName="Border"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="185"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <Grid>
+        <ScrollViewer  Grid.Column="0" Padding="0 0 15 0">
+            <Grid Margin="0 15" >
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <RadioButton Style="{DynamicResource IconRadioButton}" Checked="MyCollectionButton_OnChecked" x:Name="MyCollectionButton" 
+                                 VerticalContentAlignment="Center" GroupName="Menu"  >
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xe7df;" VerticalAlignment="Center"/>
+                            <TextBlock Text="我的收藏" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}" x:Name="MyRadioStationButton" Click="MyRadioStationButton_OnClick">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xe8ec;" VerticalAlignment="Center"/>
+                            <TextBlock Text="我的电台" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xea24;" VerticalAlignment="Center"/>
+                            <TextBlock Text="本地与下载" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xe7d9;" VerticalAlignment="Center"/>
+                            <TextBlock Text="音乐云盘" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xe608;" VerticalAlignment="Center"/>
+                            <TextBlock Text="已购音乐" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xe697;" VerticalAlignment="Center"/>
+                            <TextBlock Text="最近播放" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton VerticalContentAlignment="Center" GroupName="Menu" Style="{DynamicResource IconRadioButton}">
+                        <StackPanel Orientation="Horizontal" Margin="5 0">
+                            <TextBlock Text="&#xea86;" VerticalAlignment="Center"/>
+                            <TextBlock Text="默认列表" Margin="10 0"/>
+                        </StackPanel>
+                    </RadioButton>
 
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
-                    <Button Height="34" Margin="10 0"/>
+
 
                 </StackPanel>
+                <Expander Style="{DynamicResource ExpanderStyle1}" Grid.Row="1">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="32">
+                            <TextBlock Text="自建歌单 11" FontSize="15" Foreground="Gray" Opacity="0.6" VerticalAlignment="Center"/>
+                            <Button Style="{StaticResource SmallIconButton}" Margin="35 0 0 0">
+                                <TextBlock Text="&#xe665;"/>
+                            </Button>
+                        </StackPanel>
+                    </Expander.Header>
+                    <UniformGrid Columns="1" >
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢" Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
 
+
+
+
+
+                    </UniformGrid>
+                </Expander>
+                <Expander Style="{DynamicResource ExpanderStyle1}" Grid.Row="2">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="32">
+                            <TextBlock Text="收藏歌单 2" FontSize="15" Foreground="Gray" Opacity="0.6" VerticalAlignment="Center"/>
+
+                        </StackPanel>
+                    </Expander.Header>
+                    <UniformGrid Columns="1" >
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" >
+                                    <TextBlock Text="我喜欢"  Margin="3"/>
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Style="{DynamicResource OrderRadioButtonStyle}" GroupName="MusicOrderList">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Height="35" Width="35">
+                                    <Border.Background>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="../background.png" Rotation="Rotate180"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Border.Background>
+                                </Border>
+                                <UniformGrid Columns="1"  VerticalAlignment="Stretch" Width="114" >
+                                    <TextBlock TextTrimming="CharacterEllipsis" Text="全网最流行的神仙歌曲超好听！！！" Margin="3"/>
+
+                                    <TextBlock Text="112首" FontSize="10" Foreground="Gray" Opacity="0.8" VerticalAlignment="Bottom" Margin="3"></TextBlock>
+                                </UniformGrid>
+                            </StackPanel>
+                        </RadioButton>
+                    </UniformGrid>
+                </Expander>
             </Grid>
         </ScrollViewer>
+        <ScrollViewer Grid.Column="1">
 
+            <Grid>
+                <Frame x:Name="MyFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
